@@ -12,6 +12,8 @@ dist/
 build/
 .vite/
 
+.env.local
+
 node_modules
 dist
 dist-ssr

@@ -14,6 +14,13 @@ dist/
 build/
 .vite/
 
+# Local frontend env
+.env.local
+frontend/.env.local
+
+# Local backend env
+backend/.env
+
 # OS / editor
 .DS_Store
 .vscode/
@@ -28,8 +35,3 @@ build/
 *.npy
 *.mp4
 *.avi
-*.png
-*.jpg
-
-# Local config
-.env.local

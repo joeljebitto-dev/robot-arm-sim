@@ -1,0 +1,13 @@
+{
+  "name": "robot-arm-simulator",
+  "private": true,
+  "scripts": {
+    "dev:frontend": "pnpm --dir frontend dev",
+    "build:frontend": "pnpm --dir frontend build",
+    "preview:frontend": "pnpm --dir frontend preview",
+    "lint:frontend": "pnpm --dir frontend lint",
+    "dev:backend": "cd backend && . .venv/bin/activate && uvicorn app.main:app --reload --host 0.0.0.0 --port 8000",
+    "test:backend": "cd backend && . .venv/bin/activate && pytest",
+    "dev": "pnpm dev:frontend"
+  }
+}
