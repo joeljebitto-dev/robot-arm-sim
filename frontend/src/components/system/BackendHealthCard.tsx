@@ -9,25 +9,42 @@ type HealthState =
   | { status: "online"; data: HealthResponse }
   | { status: "offline"; error: string };
 
+async function loadBackendHealth(): Promise<HealthState> {
+  try {
+    const data = await getBackendHealth();
+    return { status: "online", data };
+  } catch (error) {
+    return {
+      status: "offline",
+      error: error instanceof Error ? error.message : "Unknown error",
+    };
+  }
+}
+
 export function BackendHealthCard() {
   const [health, setHealth] = useState<HealthState>({ status: "loading" });
 
-  async function checkHealth() {
+  function checkHealth() {
     setHealth({ status: "loading" });
-
-    try {
-      const data = await getBackendHealth();
-      setHealth({ status: "online", data });
-    } catch (error) {
-      setHealth({
-        status: "offline",
-        error: error instanceof Error ? error.message : "Unknown error",
-      });
-    }
+    void loadBackendHealth().then(setHealth);
   }
 
   useEffect(() => {
-    void checkHealth();
+    let isMounted = true;
+
+    async function checkInitialHealth() {
+      const nextHealth = await loadBackendHealth();
+
+      if (isMounted) {
+        setHealth(nextHealth);
+      }
+    }
+
+    void checkInitialHealth();
+
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
   if (health.status === "loading") {
@@ -48,7 +65,7 @@ export function BackendHealthCard() {
 
         <button
           type="button"
-          onClick={() => void checkHealth()}
+          onClick={checkHealth}
           className="mt-4 rounded-lg border border-red-800 px-3 py-2 text-sm text-red-100 hover:bg-red-900/40"
         >
           Retry
@@ -60,14 +77,10 @@ export function BackendHealthCard() {
   return (
     <section className="rounded-xl border border-emerald-900/70 bg-emerald-950/30 p-5">
       <p className="text-sm text-slate-400">Backend</p>
-      <p className="mt-2 font-mono text-sm text-emerald-300">
-        {health.data.status}
-      </p>
+      <p className="mt-2 font-mono text-sm text-emerald-300">{health.data.status}</p>
       <p className="mt-2 text-sm text-slate-300">
         Environment:{" "}
-        <span className="font-mono text-slate-100">
-          {health.data.environment}
-        </span>
+        <span className="font-mono text-slate-100">{health.data.environment}</span>
       </p>
     </section>
   );

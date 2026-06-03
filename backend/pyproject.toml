@@ -12,8 +12,29 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
-dev = ["pytest", "httpx"]
+dev = ["pytest", "httpx", "ruff", "mypy"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 pythonpath = ["."]
+
+[tool.ruff]
+line-length = 88
+target-version = "py311"
+extend-exclude = ["typings"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP"]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+
+[tool.mypy]
+python_version = "3.11"
+plugins = []
+strict = true
+warn_unused_configs = true
+warn_return_any = true
+warn_unreachable = true
+disallow_untyped_defs = true

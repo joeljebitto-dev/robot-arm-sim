@@ -6,8 +6,19 @@
     "build:frontend": "pnpm --dir frontend build",
     "preview:frontend": "pnpm --dir frontend preview",
     "lint:frontend": "pnpm --dir frontend lint",
-    "dev:backend": "cd backend && . .venv/bin/activate && uvicorn app.main:app --reload --host 0.0.0.0 --port 8000",
-    "test:backend": "cd backend && . .venv/bin/activate && pytest",
+    "format:frontend": "pnpm --dir frontend format",
+    "format:check:frontend": "pnpm --dir frontend format:check",
+    "typecheck:frontend": "pnpm --dir frontend typecheck",
+    "test:frontend": "pnpm --dir frontend test:run",
+    "check:frontend": "pnpm --dir frontend check",
+    "dev:backend": "cd backend && .venv/bin/uvicorn app.main:app --reload --host 0.0.0.0 --port 8000",
+    "lint:backend": "cd backend && .venv/bin/ruff check .",
+    "format:backend": "cd backend && .venv/bin/ruff format .",
+    "format:check:backend": "cd backend && .venv/bin/ruff format --check .",
+    "typecheck:backend": "cd backend && .venv/bin/mypy app tests",
+    "test:backend": "cd backend && .venv/bin/pytest",
+    "check:backend": "pnpm lint:backend && pnpm format:check:backend && pnpm typecheck:backend && pnpm test:backend",
+    "check": "pnpm check:backend && pnpm check:frontend",
     "dev": "pnpm dev:frontend"
   }
 }

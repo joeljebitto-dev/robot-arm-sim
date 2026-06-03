@@ -11,13 +11,11 @@ export default function App() {
             Stage 0.5
           </p>
 
-          <h1 className="text-4xl font-bold tracking-tight">
-            Robot Arm Simulator
-          </h1>
+          <h1 className="text-4xl font-bold tracking-tight">Robot Arm Simulator</h1>
 
           <p className="mt-4 max-w-2xl text-slate-300">
-            Frontend/backend health integration is active. The React app checks
-            the FastAPI backend through the Vite development proxy.
+            Frontend/backend health integration is active. The React app checks the
+            FastAPI backend through the Vite development proxy.
           </p>
 
           <div className="mt-8 grid gap-4 sm:grid-cols-3">
