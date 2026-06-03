@@ -1,0 +1,19 @@
+[project]
+name = "robot-arm-simulator-backend"
+version = "0.1.0"
+description = "FastAPI + MuJoCo backend for a robot arm simulator"
+requires-python = ">=3.11"
+dependencies = [
+  "fastapi",
+  "uvicorn[standard]",
+  "pydantic",
+  "pydantic-settings",
+  "mujoco",
+]
+
+[project.optional-dependencies]
+dev = ["pytest", "httpx"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
