@@ -1,3 +1,7 @@
+[build-system]
+requires = ["setuptools>=69", "wheel"]
+build-backend = "setuptools.build_meta"
+
 [project]
 name = "robot-arm-simulator-backend"
 version = "0.1.0"
@@ -13,6 +17,11 @@ dependencies = [
 
 [project.optional-dependencies]
 dev = ["pytest", "httpx", "ruff", "mypy"]
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["app*"]
+exclude = ["tests*", "typings*"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
